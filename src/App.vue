@@ -17,8 +17,11 @@ export default {
   components: {//组件所以来的其他组件
     Header,
     Footer
+  },
+  mounted() {
+    //派发action获取商品分类三级列表的数据(全局组件的数据)
+    this.$store.dispatch('categoryList');
   }
 }
 </script>
-
 <style scoped></style>

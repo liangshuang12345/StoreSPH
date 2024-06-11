@@ -4,7 +4,7 @@ import "nprogress/nprogress.css"; // 引入进度条样式
 
 // 利用 axios 方法 create 创建实例，为修改做方便
 const requests = axios.create({
-  baseURL: "/api", // 基础路径
+  baseURL: "/mock", // 基础路径
   timeout: 5000, // 超时时间
 });
 

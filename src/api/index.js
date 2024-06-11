@@ -1,9 +1,13 @@
-//当前模块:所有Api接口进行统一管理
 import requests from "./request";
-
-//三级联动的文档
-//  /api/product/getBaseCategoryList  get 五参数
+import mockRequests from "./mockAjax";
+// 三级联动的文档
+//  /api/product/getBaseCategoryList  get 无参数
 
 export const reqCategoryList = () =>
   requests({ url: "/product/getBaseCategoryList", method: "get" });
-//axios发请求返回的是promise对象  //函数体调用就可以发请求
+
+//获取banner（Home轮播图接口)
+export const reqGetBannerList = () => mockRequests.get("/banner");
+
+//获取floor数据
+export const reqFloorList = () => mockRequests.get("/floor");

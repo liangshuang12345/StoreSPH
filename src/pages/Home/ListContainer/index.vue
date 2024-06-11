@@ -3,15 +3,14 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div class="swiper-slide" v-for="(carousel, index) in bannerList" :key='carousel.id'>
+              <img :src="carousel.imgUrl" />
             </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
-
           <!-- 如果需要导航按钮 -->
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
@@ -101,9 +100,46 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import Swiper from "swiper";
 export default {
   name: "ListContainer",
-}
+  mounted() {
+    //派发action:通过Vuex发起ajax请求，将数据存储在仓库
+    this.$store.dispatch('getBannerList');
+  },
+  computed: {
+    ...mapState({
+      bannerList: (state) => state.home.bannerList,
+    }),
+  },
+  watch: {
+    //监听bannerList数据的变化，由空数组变为arr[4]
+    bannerList: {
+      handler(newValue, oldValue) {
+        immediate: true,
+          //通过watch监听bannerList属性值的变化
+          this.$nextTick(() => {
+            var mySwiper = new Swiper(
+              this.$refs.mySwiper,
+              {
+                loop: true, // 循环模式选项
+                // 如果需要分页器
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                },
+                // 如果需要前进后退按钮
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                },
+              });
+          });
+      },
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

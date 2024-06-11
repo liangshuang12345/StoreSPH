@@ -60,15 +60,11 @@ export default {
       //第二种模版字符串
       //this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`)
       //第三种对象的写法(最为常用)
-      let result = this.$router.push({
-        name: 'search', //也需要给路由端命名,这一行也就是告诉往哪跳
-        params: {
-          keyword: this.keyword || undefined
-        },
-        query: {
-          k: this.keyword.toUpperCase()
-        }
-      },)
+      if (this.$route.query) {
+        let location = { name: 'search', params: { keyword: this.keyword || undefined } };
+        location.query = this.$route.query;
+        this.$router.push(location)
+      }
       //给出警告的问题
       //this.$router.push({ name: 'search', query: { k: this.keyword.toUpperCase() } })不加params参数
     }
