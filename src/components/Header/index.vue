@@ -68,7 +68,13 @@ export default {
       //给出警告的问题
       //this.$router.push({ name: 'search', query: { k: this.keyword.toUpperCase() } })不加params参数
     }
-  }
+  },
+  mounted() {
+    //通过全局组件清楚关键字
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
+  },
 };
 </script>
 <style lang='less' scoped>
